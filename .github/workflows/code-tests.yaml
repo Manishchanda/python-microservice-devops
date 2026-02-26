@@ -1,0 +1,30 @@
+name: Continuous Integration
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python all python version
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+     
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install flake8
+          pip install black
+
+      - name: Run Lint
+        run: flake8 .
+
+      - name: Run Code Style Check
+        run: black --check .
+     
+      - name: Run Test
+        run: python -m unittest tests/sum_test.py

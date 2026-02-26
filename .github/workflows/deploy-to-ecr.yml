@@ -50,7 +50,7 @@ jobs:
     - name: Set SHORT_SHA
       run: |
         SHORT_SHA=$(echo "${{ github.sha }}" | head -c7)
-
+        echo "SHORT_SHA=$SHORT_SHA" >> $GITHUB_ENV
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v3
       with:

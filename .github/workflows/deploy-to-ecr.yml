@@ -64,7 +64,7 @@ jobs:
       with:
         task-definition: "fargate-app-revision4.json"
         container-name: ${{ secrets.ECS_CONTAINER_NAME }}
-        image: ${SHORT_SHA}
+        image: 263650262414.dkr.ecr.us-east-1.amazonaws.com/python-application:${SHORT_SHA}
 
     - name: Deploy ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1

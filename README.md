@@ -9,7 +9,7 @@ Simple Flask app with two routes:
 
 - `flask-application.py` - main Flask app
 - `requirements.txt` - Python dependencies
-- `Dockerfile` - container image definition
+- `docker/Dockerfile` - container image definition
 
 ## Prerequisites
 
@@ -52,7 +52,7 @@ curl http://127.0.0.1:9000/greet/Manish
 1. Build image:
 
 ```bash
-docker build -t flask-application .
+docker build -f docker/Dockerfile -t flask-application .
 ```
 
 2. Run container:
@@ -74,5 +74,6 @@ aws ecr get-login-password --region <aws-region> | docker login --username AWS -
 Build and push image:
 
 ```bash
+docker build -f docker/Dockerfile -t <image-name> .
 docker push <aws-account-id>.dkr.ecr.<aws-region>.amazonaws.com/<image-name>:latest
 ```

@@ -47,18 +47,20 @@ jobs:
     - name: Set SHORT_SHA
       run: |
         SHORT_SHA=$(echo "${{ github.sha }}" | head -c7)
-
-    - name: Fill in the new image ID in the Amazon ECS task definition
-      id: task-def
+    
+    - name: Render new ECS task definition (swap image)
+      id: render-task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition: ${{ secrets.ECS_TASK_DEFINITION }}
         container-name: ${{ secrets.ECS_CONTAINER_NAME }}
         image: ${SHORT_SHA}
 
-    - name: Deploy Amazon ECS task definition
-      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+    - name: Deploy ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v2
       with:
-        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        task-definition: ${{ steps.render-task-def.outputs.task-definition }}
+        cluster: ${{ secrets.ECS_CLUSTER }}
         service: ${{ secrets.ECS_SERVICE }}
+        wait-for-service-stability: true
   

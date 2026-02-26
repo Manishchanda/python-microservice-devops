@@ -60,11 +60,9 @@ jobs:
         image: ${SHORT_SHA}
 
     - name: Deploy ECS task definition
-      uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.render-task-def.outputs.task-definition }}
         cluster: ${{ secrets.ECS_CLUSTER }}
         service: ${{ secrets.ECS_SERVICE }}
-        aws-region:  ${{ secrets.AWS_REGION }}
         wait-for-service-stability: true
-  

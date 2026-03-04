@@ -1,9 +1,10 @@
 # Flask Application
 
-Simple Flask app with two routes:
+Simple Flask app with AWS integration and routes:
 
 - `/` -> `Hello, World!`
 - `/greet/<name>` -> personalized greeting
+- `/aws/resources` -> reads a Secrets Manager secret and lists S3 buckets
 
 ## Project Structure
 
@@ -45,6 +46,20 @@ App runs on `http://127.0.0.1:9000`.
 ```bash
 curl http://127.0.0.1:9000/
 curl http://127.0.0.1:9000/greet/Manish
+curl http://127.0.0.1:9000/aws/resources
+```
+
+For the AWS route, configure:
+
+- `AWS_REGION` (optional, default: `us-east-1`)
+- `AWS_SECRET_NAME` (optional, if set the API reads this Secrets Manager secret)
+
+Example:
+
+```bash
+export AWS_REGION=us-east-1
+export AWS_SECRET_NAME=my/app/secret
+python3 flask-application.py
 ```
 
 ## Run with Docker

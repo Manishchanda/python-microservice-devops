@@ -62,7 +62,7 @@ jobs:
       id: render-task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: "fargate-app-revision4.json"
+        task-definition: "fargate-app-revision15.json"
         container-name: ${{ secrets.ECS_CONTAINER_NAME }}
         image: 263650262414.dkr.ecr.us-east-1.amazonaws.com/python-application:${{env.SHORT_SHA}}
 
